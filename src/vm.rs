@@ -333,6 +333,13 @@ impl<H: AxVMHal, U: AxVCpuHal> AxVM<H, U> {
                     reg,
                     reg_width: _,
                 } => {
+                    log::info!(
+                        "[VM{}] MMIO READ @ {:#x}, width: {}, to_reg: {}",
+                        self.id(),
+                        addr,
+                        width,
+                        reg
+                    );
                     let val = self
                         .get_devices()
                         .handle_mmio_read(*addr, (*width).into())?;
@@ -340,6 +347,13 @@ impl<H: AxVMHal, U: AxVCpuHal> AxVM<H, U> {
                     true
                 }
                 AxVCpuExitReason::MmioWrite { addr, width, data } => {
+                    log::info!(
+                        "[VM{}] MMIO WRITE @ {:#x}, width: {}, data: {:#x}",
+                        self.id(),
+                        addr,
+                        width,
+                        data
+                    );
                     self.get_devices()
                         .handle_mmio_write(*addr, (*width).into(), *data as usize);
                     true
