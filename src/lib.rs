@@ -15,6 +15,7 @@ extern crate log;
 mod hal;
 mod vcpu;
 mod vm;
+mod bitmap;
 
 pub mod config;
 
